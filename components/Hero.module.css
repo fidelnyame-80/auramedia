@@ -1,0 +1,323 @@
+.heroPattern {
+  mix-blend-mode: screen;
+}
+
+.patternDrift,
+.patternDriftReverse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: aura-pattern-oscillate 20s ease-in-out infinite;
+}
+
+.patternDriftReverse {
+  animation-duration: 26s;
+  animation-direction: reverse;
+}
+
+.heroTextMarks {
+  filter: drop-shadow(0 0 16px rgb(37 57 168 / 0.18));
+}
+
+.markFloatSlow,
+.markFloatWide,
+.markFloatArrow,
+.markFloatShapeA,
+.markFloatShapeB,
+.markFloatShapeC,
+.markFloatIconA,
+.markFloatIconB,
+.markFloatIconC {
+  transform-box: fill-box;
+  transform-origin: center;
+  will-change: transform;
+}
+
+.markFloatSlow {
+  animation: aura-mark-float-slow 8s ease-in-out 1.18s infinite;
+}
+
+.markFloatWide {
+  animation: aura-mark-float-wide 9.5s ease-in-out 1.26s infinite;
+}
+
+.markFloatArrow {
+  animation: aura-mark-float-arrow 7.25s ease-in-out 1.34s infinite;
+}
+
+.markFloatShapeA {
+  animation: aura-mark-float-shape-a 6.5s ease-in-out 1s infinite;
+}
+
+.markFloatShapeB {
+  animation: aura-mark-float-shape-b 7.5s ease-in-out 1.08s infinite;
+}
+
+.markFloatShapeC {
+  animation: aura-mark-float-shape-c 8.25s ease-in-out 1.16s infinite;
+}
+
+.markFloatIconA {
+  animation: aura-mark-float-icon-a 9s ease-in-out 1.42s infinite;
+}
+
+.markFloatIconB {
+  animation: aura-mark-float-icon-b 8.5s ease-in-out 1.5s infinite;
+}
+
+.markFloatIconC {
+  animation: aura-mark-float-icon-c 10s ease-in-out 1.58s infinite;
+}
+
+.paintLine,
+.paintLineSoft,
+.paintArrow,
+.paintIconBlue,
+.paintIconRed,
+.paintIconCream {
+  fill: none;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  animation: aura-paint-stroke 1.05s ease-out forwards;
+}
+
+.paintLine {
+  stroke: rgb(242 238 229 / 0.22);
+  stroke-width: 1.4;
+  animation-delay: 0.12s;
+}
+
+.paintLineSoft {
+  stroke: rgb(138 144 154 / 0.2);
+  stroke-width: 1.2;
+  animation-delay: 0.06s;
+}
+
+.paintArrow {
+  stroke: rgb(255 31 45 / 0.3);
+  stroke-width: 1.6;
+  animation-delay: 0.24s;
+}
+
+.paintIconBlue {
+  stroke: rgb(37 57 168 / 0.34);
+  stroke-width: 2.2;
+  animation-delay: 0.48s;
+}
+
+.paintIconRed {
+  stroke: rgb(255 31 45 / 0.28);
+  stroke-width: 2;
+  animation-delay: 0.56s;
+}
+
+.paintIconCream {
+  stroke: rgb(242 238 229 / 0.18);
+  stroke-width: 2;
+  animation-delay: 0.64s;
+}
+
+.paintDotBlue,
+.paintDotRed,
+.paintDotCream,
+.paintShapeBlue,
+.paintShapeRed,
+.paintShapeCream {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: aura-paint-shape 0.62s ease-out forwards;
+}
+
+.paintDotBlue,
+.paintShapeBlue {
+  fill: rgb(37 57 168 / 0.28);
+  animation-delay: 0.34s;
+}
+
+.paintDotRed,
+.paintShapeRed {
+  fill: rgb(255 31 45 / 0.22);
+  animation-delay: 0.42s;
+}
+
+.paintDotCream,
+.paintShapeCream {
+  fill: rgb(242 238 229 / 0.14);
+  animation-delay: 0.5s;
+}
+
+@keyframes aura-pattern-oscillate {
+  0%,
+  100% {
+    transform: translate3d(-3px, -14px, 0);
+  }
+
+  50% {
+    transform: translate3d(5px, 18px, 0);
+  }
+}
+
+@keyframes aura-paint-stroke {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes aura-paint-shape {
+  0% {
+    opacity: 0;
+    transform: scale(0.35);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes aura-mark-float-slow {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+
+  50% {
+    transform: translate3d(14px, -9px, 0) rotate(1.6deg);
+  }
+}
+
+@keyframes aura-mark-float-wide {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+
+  50% {
+    transform: translate3d(-16px, 11px, 0) rotate(-1.4deg);
+  }
+}
+
+@keyframes aura-mark-float-arrow {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+
+  50% {
+    transform: translate3d(10px, 14px, 0) rotate(-2deg);
+  }
+}
+
+@keyframes aura-mark-float-shape-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+
+  50% {
+    transform: translate3d(-10px, 12px, 0) rotate(8deg);
+  }
+}
+
+@keyframes aura-mark-float-shape-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+
+  50% {
+    transform: translate3d(12px, -10px, 0) rotate(-7deg);
+  }
+}
+
+@keyframes aura-mark-float-shape-c {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+
+  50% {
+    transform: translate3d(9px, 9px, 0) rotate(5deg);
+  }
+}
+
+@keyframes aura-mark-float-icon-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+
+  50% {
+    transform: translate3d(11px, -13px, 0) rotate(3deg);
+  }
+}
+
+@keyframes aura-mark-float-icon-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+
+  50% {
+    transform: translate3d(-12px, 10px, 0) rotate(-4deg);
+  }
+}
+
+@keyframes aura-mark-float-icon-c {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+
+  50% {
+    transform: translate3d(9px, 12px, 0) rotate(2.5deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .patternDrift,
+  .patternDriftReverse,
+  .markFloatSlow,
+  .markFloatWide,
+  .markFloatArrow,
+  .markFloatShapeA,
+  .markFloatShapeB,
+  .markFloatShapeC,
+  .markFloatIconA,
+  .markFloatIconB,
+  .markFloatIconC,
+  .paintLine,
+  .paintLineSoft,
+  .paintArrow,
+  .paintIconBlue,
+  .paintIconRed,
+  .paintIconCream,
+  .paintDotBlue,
+  .paintDotRed,
+  .paintDotCream,
+  .paintShapeBlue,
+  .paintShapeRed,
+  .paintShapeCream {
+    animation: none;
+  }
+
+  .paintLine,
+  .paintLineSoft,
+  .paintArrow,
+  .paintIconBlue,
+  .paintIconRed,
+  .paintIconCream {
+    stroke-dashoffset: 0;
+  }
+
+  .paintDotBlue,
+  .paintDotRed,
+  .paintDotCream,
+  .paintShapeBlue,
+  .paintShapeRed,
+  .paintShapeCream {
+    opacity: 1;
+  }
+}
