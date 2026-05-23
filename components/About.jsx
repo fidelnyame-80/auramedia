@@ -26,9 +26,13 @@ export default function About() {
           </h2>
 
           <p className="mb-10 max-w-lg leading-7 text-white/60">
-            We&rsquo;re a team of designers, thinkers, and creators passionate about
-            building digital experiences that make an impact. From concept to
-            launch, we bring ideas to life with creativity and precision.
+            Aura Media is a digital design agency focused on building modern
+            websites, brand systems, and immersive user experiences for
+            ambitious businesses.
+            <br />
+            <br />
+            We combine strategy, motion, UI/UX, and development to create
+            products that don&rsquo;t just look good &mdash; they perform.
           </p>
 
           <div className="mb-10 grid gap-6 sm:grid-cols-3">

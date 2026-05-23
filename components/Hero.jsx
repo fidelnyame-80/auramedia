@@ -1,3 +1,7 @@
+"use client";
+
+import { motion } from "framer-motion";
+
 import { ArrowRight } from "lucide-react";
 import styles from "./Hero.module.css";
 import RightGridPattern from "./RightGridPattern";
@@ -5,7 +9,7 @@ import HeroCards from "./heroCards";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-[#050914] px-6 pt-32 text-white">
+    <section className="relative min-h-[120vh] overflow-hidden bg-[#050914] px-6 pt-32 text-white">
       <svg
         aria-hidden="true"
         focusable="false"
@@ -115,7 +119,8 @@ export default function Hero() {
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute right-[7vw] top-[10.5rem] z-[8] hidden lg:block"
+        className="pointer-events-none absolute right-[clamp(2rem,7vw,9rem)] top-[9.5rem] hidden h-[360px] w-[470px] opacity-100 lg:block"
+        style={{ zIndex: 30 }}
       >
         <HeroCards />
       </div>
@@ -220,10 +225,16 @@ export default function Hero() {
             </g>
           </svg>
 
-          <h1 className="relative z-10 text-5xl font-bold leading-tight md:text-7xl lg:text-5xl">
-            We Design. <br />
-            We Brand. <br />
-            We Build{" "}
+          <h1 className="relative z-10 text-5xl font-bold leading-tight md:text-7xl lg:text-[2.7rem]">
+           <motion.span 
+           className="block"
+           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+             We Design.
+           </motion.span>
+           <br />
+           <motion.span> We Brand.</motion.span>
+            <br />
+            <motion.span>We Build{" "}</motion.span>
             <span className="text-[#ff1f2d]">Experiences.</span>
           </h1>
 
