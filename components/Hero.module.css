@@ -148,17 +148,67 @@
   animation-delay: 0.5s;
 }
 
+.heroTitleLine {
+  display: block;
+  opacity: 0;
+  transform: translate3d(0, 32px, 0);
+  clip-path: inset(0 0 100% 0);
+  animation: aura-title-line-in 1.18s cubic-bezier(0.16, 1, 0.3, 1) 0.12s forwards;
+  will-change: transform, opacity, clip-path;
+}
+
+.heroTitleLine:nth-child(2) {
+  animation-delay: 0.42s;
+}
+
+.heroTitleLine:nth-child(3) {
+  animation-delay: 0.72s;
+}
+
+.heroCardsStage {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  height: 100%;
+}
+
+.heroCardsStage::before {
+  position: absolute;
+  z-index: 0;
+  top: 24px;
+  left: -18px;
+  width: 540px;
+  height: 280px;
+  content: "";
+  border-radius: 28px;
+  background:
+    linear-gradient(115deg, rgb(255 31 45 / 0.28), transparent 38%),
+    linear-gradient(245deg, rgb(37 57 168 / 0.32), transparent 42%),
+    rgb(255 255 255 / 0.03);
+  filter: blur(34px);
+  opacity: 0;
+  transform: translate3d(0, 18px, 0) scale(0.94);
+  animation: aura-card-glow-in 0.9s ease-out 1.65s forwards;
+  pointer-events: none;
+}
+
 .heroCardSlot {
   position: absolute;
-  left: var(--card-left);
-  top: var(--card-top);
   width: 250px;
   height: 250px;
-  transform: rotate(var(--card-rotate));
   transform-origin: center;
-  will-change: transform;
+  transform: translate3d(0, 0, 0) rotate(var(--card-rotate)) scale(1);
+  animation: aura-card-settle 0.9s cubic-bezier(0.16, 1, 0.3, 1) 1.5s
+    forwards;
+  will-change: transform, left, top;
+}
+
+.heroCardFloat {
+  width: 100%;
+  height: 100%;
   animation: aura-card-float var(--card-float-duration) ease-in-out
-    var(--card-float-delay) infinite;
+    calc(2.4s + var(--card-float-delay)) infinite;
+  will-change: transform;
 }
 
 .heroCard {
@@ -167,19 +217,39 @@
   height: 100%;
   overflow: hidden;
   border-radius: 24px;
+  background: transparent;
   box-shadow: 0 28px 60px rgb(0 0 0 / 0.5);
   opacity: 0.98;
   transform: translate3d(24px, 14px, 0) scale(0.96);
   animation: aura-card-paint-in 0.82s ease-in-out var(--card-delay) forwards;
 }
 
-.heroCardGlow {
+.heroCardImage {
+  object-fit: cover;
+  object-position: center;
+}
+
+.heroCardShade {
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    circle at 25% 20%,
-    rgb(255 255 255 / 0.35),
-    transparent 34%
+  background:
+    linear-gradient(to top, rgb(5 9 20 / 0.74), transparent 48%),
+    radial-gradient(
+      circle at 25% 20%,
+      rgb(255 255 255 / 0.18),
+      transparent 34%
+    );
+}
+
+.heroCardShade::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: linear-gradient(
+    135deg,
+    rgb(255 255 255 / 0.12),
+    transparent 34%,
+    rgb(0 0 0 / 0.22)
   );
 }
 
@@ -203,6 +273,14 @@
 
   50% {
     transform: translate3d(5px, 18px, 0);
+  }
+}
+
+@keyframes aura-title-line-in {
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    clip-path: inset(0 0 0% 0);
   }
 }
 
@@ -237,18 +315,32 @@
   }
 }
 
+@keyframes aura-card-glow-in {
+  to {
+    opacity: 0.72;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes aura-card-settle {
+  to {
+    transform: translate3d(var(--card-settle-x), var(--card-settle-y), 0)
+      rotate(0deg) scale(0.95);
+  }
+}
+
 @keyframes aura-card-float {
   0%,
   100% {
-    transform: rotate(var(--card-rotate)) translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 
-  25% {
-    transform: rotate(var(--card-rotate)) translate3d(0, -14px, 0);
+  38% {
+    transform: translate3d(0, var(--card-float-rise), 0);
   }
 
-  70% {
-    transform: rotate(var(--card-rotate)) translate3d(0, 11px, 0);
+  72% {
+    transform: translate3d(0, var(--card-float-dip), 0);
   }
 }
 
@@ -375,7 +467,10 @@
     .paintShapeBlue,
     .paintShapeRed,
   .paintShapeCream,
+  .heroCardsStage::before,
+  .heroTitleLine,
   .heroCardSlot,
+  .heroCardFloat,
   .heroCard,
   .heroCardSheen {
     animation: none;
@@ -399,8 +494,28 @@
     opacity: 1;
   }
 
+  .heroTitleLine {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+  }
+
   .heroCard {
     opacity: 1;
+    transform: none;
+  }
+
+  .heroCardSlot {
+    transform: translate3d(var(--card-settle-x), var(--card-settle-y), 0)
+      rotate(0deg) scale(0.88);
+  }
+
+  .heroCardsStage::before {
+    opacity: 0.64;
+    transform: none;
+  }
+
+  .heroCardFloat {
     transform: none;
   }
 

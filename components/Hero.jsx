@@ -1,7 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
-
 import { ArrowRight } from "lucide-react";
 import styles from "./Hero.module.css";
 import RightGridPattern from "./RightGridPattern";
@@ -9,7 +5,7 @@ import HeroCards from "./heroCards";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[120vh] overflow-hidden bg-[#050914] px-6 pt-32 text-white">
+    <section className="relative overflow-hidden bg-[#050914] px-6 pb-16 pt-32 text-white lg:min-h-[120vh] lg:pb-0">
       <svg
         aria-hidden="true"
         focusable="false"
@@ -226,22 +222,16 @@ export default function Hero() {
           </svg>
 
           <h1 className="relative z-10 text-5xl font-bold leading-tight md:text-7xl lg:text-[2.7rem]">
-           <motion.span 
-           className="block"
-           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-             We Design.
-           </motion.span>
-           <br />
-           <motion.span> We Brand.</motion.span>
-            <br />
-            <motion.span>We Build{" "}</motion.span>
-            <span className="text-[#ff1f2d]">Experiences.</span>
+            <span className={styles.heroTitleLine}>We Design.</span>
+            <span className={styles.heroTitleLine}>We Brand.</span>
+            <span className={styles.heroTitleLine}>
+              We Build <span className="text-[#ff1f2d]">Experiences.</span>
+            </span>
           </h1>
 
           <p className="relative z-10 mt-8 max-w-md text-sm leading-7 text-white/70 md:text-base">
-            Aura Media is a creative web design & graphic design agency helping
-            brands stand out with impactful design and digital experiences.
-          </p>
+          Aura Media is a team of product engineers and creative designers building modern websites, brand systems, and digital experiences that help businesses stand out and grow online.
+            </p>
 
           <div className="relative z-10 mt-8 flex flex-col gap-4 sm:flex-row">
             <a className="rounded-xl bg-[#2539a8] px-8 py-4 text-center text-sm font-bold">
