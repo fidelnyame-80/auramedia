@@ -1,7 +1,12 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
-import CircularGallery from "./CircularGallery";
+
+const CircularGallery = dynamic(() => import("./CircularGallery"), {
+  ssr: false,
+  loading: () => <div className="h-full w-full" aria-hidden="true" />,
+});
 
 // Framer Motion preset for elements that should rise slightly as they appear.
 const fadeUp = {
