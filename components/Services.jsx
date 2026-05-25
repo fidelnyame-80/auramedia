@@ -130,7 +130,7 @@ export default function Services() {
       <div className="mx-auto max-w-7xl">
         <div className="mb-12 text-center">
           <motion.p
-            className="mb-3 text-xs font-bold uppercase tracking-widest text-[#ff1f2d]"
+            className="mb-3 text-lg lg:text-xl font-bold uppercase tracking-widest text-[#ff1f2d]"
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"

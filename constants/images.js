@@ -1,6 +1,7 @@
 export const images = {
   logo: "/images/AuraLogo.webp",
   hero: "/images/hero.png",
+  about: "/images/designs7.webp",
   leftPattern: "/images/left-pattern.png",
 
   projects: {

@@ -1,10 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
-import { images } from "@/constants/images";
+import CircularGallery from "./CircularGallery";
 
+// Framer Motion preset for elements that should rise slightly as they appear.
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
   visible: {
@@ -14,6 +13,7 @@ const fadeUp = {
   },
 };
 
+// Framer Motion preset for the main section heading.
 const slideInLeft = {
   hidden: { opacity: 0, x: -64 },
   visible: {
@@ -23,6 +23,7 @@ const slideInLeft = {
   },
 };
 
+// Applies a small delay between each filter button animation.
 const staggerGroup = {
   hidden: {},
   visible: {
@@ -30,23 +31,33 @@ const staggerGroup = {
   },
 };
 
-const projects = [
-  ["Cyber Apparel", "E-Commerce Website", images.projects.cyber],
-  ["Liquid Visions", "Web Design", images.projects.liquid],
-  ["Dark Streetwear", "Brand Identity", images.projects.dark],
-  ["Vertex Studio", "Branding", images.projects.vertex],
-  ["Neon Babies", "Graphic Design", images.projects.neon],
-  ["Spiked Society", "Web Design", images.projects.spiked],
+/*
+  These are the project slides used by CircularGallery below.
+
+  Replace image paths here when you add final portfolio images.
+  Each object needs:
+  - image: public path or remote image URL
+  - text: label rendered under the WebGL card
+
+  The current paths point to /public/images/designs1.webp through designs6.webp.
+*/
+const galleryItems = [
+  { image: "/images/designs1.webp", text: "Design 1" },
+  { image: "/images/designs2.webp", text: "Design 2" },
+  { image: "/images/designs3.webp", text: "Design 3" },
+  { image: "/images/designs4.webp", text: "Design 4" },
+  { image: "/images/designs5.webp", text: "Design 5" },
+  { image: "/images/designs6.webp", text: "Design 6" },
 ];
 
 export default function Portfolio() {
   return (
-    <section id="work" className="bg-[#050914] px-6 py-24 text-white">
+    <section id="work" className="bg-[#050914] px-6 pb-8 pt-24 text-white">
       <div className="mx-auto max-w-7xl">
-        <div className="mb-12 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+        <div className="mb-4 flex flex-col gap-6 md:mb-3 md:flex-row md:items-end md:justify-between">
           <div>
             <motion.p
-              className="mb-3 text-lg font-bold uppercase tracking-widest text-[#ff1f2d]"
+              className="mb-3 text-lg lg:text-xl font-bold uppercase tracking-widest text-[#ff1f2d]"
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
@@ -88,34 +99,39 @@ export default function Portfolio() {
         </div>
 
         <motion.div
-          className="grid gap-7 md:grid-cols-3"
-          variants={staggerGroup}
+          className="relative h-[420px] overflow-hidden sm:h-[480px] lg:h-[520px]"
+          variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.18 }}
         >
-          {projects.map(([title, category, img]) => (
-            <motion.div
-              key={title}
-              className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03]"
-              variants={fadeUp}
-            >
-              <div className="relative h-64">
-                <Image src={img} alt={title} fill className="object-cover" />
-              </div>
+          {/*
+            CircularGallery usage for the Our Work section.
 
-              <div className="flex items-center justify-between p-5">
-                <div>
-                  <h3 className="font-bold">{title}</h3>
-                  <p className="text-sm text-white/60">{category}</p>
-                </div>
-
-                <button className="flex h-10 w-10 items-center justify-center rounded-full border border-[#2539a8] text-[#2539a8]">
-                  <ArrowRight size={18} />
-                </button>
-              </div>
-            </motion.div>
-          ))}
+            Tuning notes:
+            - The wrapper above controls available gallery height:
+              h-[420px] sm:h-[480px] lg:h-[520px]
+            - bend controls the arc. Use 0 for flat, 1 for subtle curve.
+            - scrollSpeed controls how far wheel/drag input moves the carousel.
+            - scrollEase controls how fast the visible carousel catches the target.
+            - imageFit="contain" shows the full artwork instead of cropping it.
+            - itemWidth and itemHeight control card size.
+              The designs are 1536x1024, so these values keep a 1.5 landscape ratio.
+            - itemPadding controls space between cards.
+            - The actual gallery logic lives in components/CircularGallery.jsx.
+          */}
+          <CircularGallery
+            items={galleryItems}
+            bend={1}
+            textColor="#ffffff"
+            borderRadius={0.05}
+            scrollSpeed={1}
+            scrollEase={0.05}
+            imageFit="contain"
+            itemWidth={980}
+            itemHeight={653}
+            itemPadding={1.35}
+          />
         </motion.div>
       </div>
     </section>

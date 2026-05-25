@@ -82,7 +82,7 @@ function CountUp({ value, suffix = "" }) {
 
 export default function About() {
   return (
-    <section id="about" className="bg-[#050914] px-6 py-24 text-white">
+    <section id="about" className="bg-[#050914] px-6 pb-24 pt-10 text-white">
       <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-2 md:items-center">
         <motion.div
           className="relative hidden h-[450px] overflow-hidden rounded-3xl md:block"
@@ -92,7 +92,7 @@ export default function About() {
           viewport={{ once: true, amount: 0.35 }}
         >
           <Image
-            src={images.hero}
+            src={images.about}
             alt="About Aura Media"
             fill
             className="object-cover"
@@ -109,7 +109,7 @@ export default function About() {
             viewport={{ once: true, amount: 0.35 }}
           >
             <Image
-              src={images.hero}
+              src={images.about}
               alt=""
               fill
               className="object-cover md:hidden"
@@ -146,13 +146,9 @@ export default function About() {
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.45 }}
               >
-                Aura Media is a digital design agency focused on building modern
-                websites, brand systems, and immersive user experiences for
-                ambitious businesses.
-                <br />
-                <br />
-                We combine strategy, motion, UI/UX, and development to create
-                products that don&rsquo;t just look good &mdash; they perform.
+                Aura Media is a digital design agency headquartered in Accra, Ghana, powered by a team of top-tier product engineers, designers, and creative strategists building modern websites, immersive brand systems, and high-performance digital experiences.
+
+                Recognized among the most advanced creative engineering teams in West Africa, we combine strategy, motion, UI/UX, branding, and development to create products that perform, scale, and leave lasting impressions.<br />
               </motion.p>
             </div>
           </motion.div>
