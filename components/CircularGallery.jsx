@@ -156,7 +156,8 @@ class Media {
     imageFit = 'cover',
     itemWidth = 700,
     itemHeight = 900,
-    itemPadding = 2
+    itemPadding = 2,
+    onLoad
   }) {
     // extra shifts cards by full carousel widths when looping from one side to the other.
     this.extra = 0;
@@ -184,6 +185,7 @@ class Media {
     this.itemWidth = itemWidth;
     this.itemHeight = itemHeight;
     this.itemPadding = itemPadding;
+    this.onLoad = onLoad;
     this.createShader();
     this.createMesh();
     this.createTitle();
@@ -299,6 +301,10 @@ class Media {
       // Once loaded, the shader receives the real bitmap and its natural size.
       texture.image = img;
       this.program.uniforms.uImageSizes.value = [img.naturalWidth, img.naturalHeight];
+      this.onLoad?.(this.index);
+    };
+    img.onerror = () => {
+      this.onLoad?.(this.index);
     };
   }
   createMesh() {
@@ -427,7 +433,8 @@ class App {
       imageFit = 'cover',
       itemWidth = 700,
       itemHeight = 900,
-      itemPadding = 2
+      itemPadding = 2,
+      onReady
     } = {}
   ) {
     // The container is the div returned by the React component.
@@ -442,6 +449,8 @@ class App {
     */
     this.scrollSpeed = scrollSpeed;
     this.scroll = { ease: scrollEase, current: 0, target: 0, last: 0 };
+    this.onReady = onReady;
+    this.loadedMediaIndexes = new Set();
 
     // Debounced snap-to-nearest-card after wheel scrolling.
     this.onCheckDebounce = debounce(this.onCheck, 200);
@@ -487,6 +496,15 @@ class App {
       widthSegments: 100
     });
   }
+  handleMediaLoad(index) {
+    if (this.isDestroyed || this.loadedMediaIndexes.has(index)) return;
+
+    this.loadedMediaIndexes.add(index);
+
+    if (this.loadedMediaIndexes.size >= this.mediasImages.length) {
+      this.onReady?.();
+    }
+  }
   createMedias(items, bend = 1, textColor, borderRadius, font, imageFit, itemWidth, itemHeight, itemPadding) {
     // Fallback images appear only if no items are passed from Portfolio.jsx.
     const defaultItems = [
@@ -510,6 +528,11 @@ class App {
       This helps the wrap-around feel continuous instead of hitting an end.
     */
     this.mediasImages = galleryItems.concat(galleryItems);
+    if (this.mediasImages.length === 0) {
+      this.onReady?.();
+      return;
+    }
+
     this.medias = this.mediasImages.map((data, index) => {
       return new Media({
         geometry: this.planeGeometry,
@@ -529,7 +552,8 @@ class App {
         imageFit,
         itemWidth,
         itemHeight,
-        itemPadding
+        itemPadding,
+        onLoad: this.handleMediaLoad.bind(this)
       });
     });
   }
@@ -632,6 +656,7 @@ class App {
     window.addEventListener('touchend', this.boundOnTouchUp);
   }
   destroy() {
+    this.isDestroyed = true;
     // Clean up animation, global listeners, and canvas when React unmounts.
     window.cancelAnimationFrame(this.raf);
     window.removeEventListener('resize', this.boundOnResize);
@@ -675,7 +700,8 @@ export default function CircularGallery({
   imageFit = 'cover',
   itemWidth = 700,
   itemHeight = 900,
-  itemPadding = 2
+  itemPadding = 2,
+  onReady
 }) {
   const containerRef = useRef(null);
 
@@ -696,12 +722,13 @@ export default function CircularGallery({
       imageFit,
       itemWidth,
       itemHeight,
-      itemPadding
+      itemPadding,
+      onReady
     });
     return () => {
       app.destroy();
     };
-  }, [items, bend, textColor, borderRadius, font, scrollSpeed, scrollEase, imageFit, itemWidth, itemHeight, itemPadding]);
+  }, [items, bend, textColor, borderRadius, font, scrollSpeed, scrollEase, imageFit, itemWidth, itemHeight, itemPadding, onReady]);
 
   // OGL appends its canvas into this div.
   return <div className="w-full h-full overflow-hidden cursor-grab active:cursor-grabbing" ref={containerRef} />;

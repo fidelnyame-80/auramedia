@@ -172,6 +172,19 @@
   height: 100%;
 }
 
+.heroCardsStage[data-ready="false"]::before,
+.heroCardsStage[data-ready="false"] .heroCardSlot,
+.heroCardsStage[data-ready="false"] .heroCardFloat,
+.heroCardsStage[data-ready="false"] .heroCard,
+.heroCardsStage[data-ready="false"] .heroCardSheen {
+  animation-play-state: paused;
+}
+
+.heroCardsStage[data-ready="false"]::before,
+.heroCardsStage[data-ready="false"] .heroCard {
+  opacity: 0;
+}
+
 .heroCardsStage::before {
   position: absolute;
   z-index: 0;

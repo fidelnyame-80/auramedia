@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef, useState } from "react";
 import Image from "next/image";
 import styles from "./Hero.module.css";
 
@@ -48,7 +49,7 @@ const cards = [
   },
 ];
 
-function StackingCard({ card, index }) {
+function StackingCard({ card, index, onImageReady }) {
   const startLeft = Number.parseFloat(card.left);
   const startTop = Number.parseFloat(card.top);
 
@@ -76,8 +77,13 @@ function StackingCard({ card, index }) {
             alt=""
             fill
             sizes="280px"
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
             placeholder="empty"
             className={styles.heroCardImage}
+            onLoad={() => onImageReady(index)}
+            onError={() => onImageReady(index)}
           />
           <div className={styles.heroCardShade} />
           <div className={styles.heroCardSheen} />
@@ -91,10 +97,26 @@ function StackingCard({ card, index }) {
 }
 
 export default function HeroCards() {
+  const readyImages = useRef(new Set());
+  const [readyCount, setReadyCount] = useState(0);
+  const isReady = readyCount >= cards.length;
+
+  function handleImageReady(index) {
+    if (readyImages.current.has(index)) return;
+
+    readyImages.current.add(index);
+    setReadyCount(readyImages.current.size);
+  }
+
   return (
-    <div className={styles.heroCardsStage}>
+    <div className={styles.heroCardsStage} data-ready={isReady ? "true" : "false"}>
       {cards.map((card, index) => (
-        <StackingCard key={card.label} card={card} index={index} />
+        <StackingCard
+          key={card.label}
+          card={card}
+          index={index}
+          onImageReady={handleImageReady}
+        />
       ))}
     </div>
   );
